@@ -1,25 +1,45 @@
 {% extends "base.html" %}
 
-{% block title %}AdMetrix - Login{% endblock %}
+{% block title %}Вход{% endblock %}
 
 {% block content %}
-<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="card shadow-sm p-4" style="width: 400px;">
-        <h3 class="mb-4 text-center">Вход в личный кабинет</h3>
+<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+    <div class="card shadow border-0 p-4" style="width: 100%; max-width: 400px; border-radius: 12px;">
+        <h3 class="text-center mb-4 fw-bold" style="color: #313131;">Вход в AdMetrix</h3>
+        
         <form method="POST">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="username" class="form-label">Логин</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+            
+            {% if form.errors %}
+                <div class="alert alert-danger p-2 text-center" style="font-size: 0.85rem;">
+                    Неверное имя пользователя или пароль.
+                </div>
+            {% endif %}
+
+            <div class="form-group mb-3">
+                <label class="form-label small fw-bold text-uppercase text-muted">Имя пользователя</label>
+                <input type="text" name="username" class="form-control" 
+                       style="border-radius: 8px;" required autofocus>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+
+            <div class="form-group mb-3">
+                <label class="form-label small fw-bold text-uppercase text-muted">Пароль</label>
+                <input type="password" name="password" class="form-control" 
+                       style="border-radius: 8px;" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Войти</button>
+
+            <button type="submit" class="btn btn-primary w-100 fw-bold mt-3 shadow-sm" 
+                    style="border-radius: 8px; height: 48px; background-color: #6a1b9a; border: none;">
+                Войти
+            </button>
         </form>
-        <div class="text-center mt-3">
-            <a href="{% url 'homepage' %}">← Вернуться на главную</a>
+        
+        <div class="text-center mt-4">
+            <p class="small mb-0 text-muted">Нет аккаунта? 
+                <a href="{% url 'register' %}" class="fw-bold text-primary">Создать профиль</a>
+            </p>
+            <hr class="my-3">
+            <a href="{% url 'homepage' %}" class="small text-muted text-decoration-none">← На главную</a>
         </div>
     </div>
 </div>

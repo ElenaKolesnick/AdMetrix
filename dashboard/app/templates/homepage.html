@@ -1,139 +1,186 @@
 {% extends "base.html" %}
 
+{% block title %}Главная{% endblock %}
+
 {% block content %}
 
-<!-- Шапка -->
-<header class="navbar navbar-expand-lg navbar-light" style="background: linear-gradient(90deg, #6a1b9a, #ff9800); position: sticky; top: 0; z-index: 1000;">
+<header class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(90deg, #6a1b9a, #ff9800); position: sticky; top: 0; z-index: 1000; padding: 0.8rem 0;">
     <div class="container">
-        <a class="navbar-brand text-white fw-bold" href="#">AdMetrix</a>
+        <a class="navbar-brand fw-bold fs-3" href="{% url 'homepage' %}">AdMetrix</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link text-white" href="#features">Особенности</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="#pricing">Тарифы</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#contact">Контакты</a></li>
+                
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-lg-3 px-4" href="{% url 'report' %}">Личный кабинет</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link text-white border-0 bg-transparent ms-2" style="cursor: pointer;">Выйти</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-warning fw-bold ms-lg-3 px-4 shadow-sm" href="{% url 'login' %}">Войти</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </header>
 
-<!-- Hero -->
-<section class="text-center py-5" style="background: linear-gradient(180deg, #d1c4e9, #ffe0b2);">
+<section class="text-center py-5 d-flex align-items-center" style="background: linear-gradient(180deg, #d1c4e9, #ffe0b2); min-height: 60vh;">
     <div class="container">
-        <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">AdMetrix Dashboard</h1>
-        <p class="lead text-dark animate__animated animate__fadeInUp">Анализируйте кампании, предсказывайте поведение игроков и растите ваш проект</p>
-        <a href="#pricing" class="btn btn-lg btn-warning fw-bold animate__animated animate__fadeInUp animate__delay-1s">Начать сейчас</a>
+        <h1 class="display-3 fw-bold animate__animated animate__fadeInDown" style="color: #311b92;">AdMetrix Dashboard</h1>
+        <p class="lead text-dark mb-4 animate__animated animate__fadeInUp" style="max-width: 700px; margin: 0 auto;">Анализируйте кампании, предсказывайте поведение игроков и растите ваш проект с помощью ИИ.</p>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'report' %}" class="btn btn-lg btn-warning fw-bold px-5 py-3 shadow animate__animated animate__fadeInUp animate__delay-1s">Перейти к отчетам</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="btn btn-lg btn-warning fw-bold px-5 py-3 shadow animate__animated animate__fadeInUp animate__delay-1s">Начать сейчас</a>
+        {% endif %}
     </div>
 </section>
 
-<!-- Особенности -->
-<section id="features" class="py-5">
+<section id="features" class="py-5 bg-white">
     <div class="container">
-        <h2 class="text-center mb-4 animate__animated animate__fadeInUp">Особенности</h2>
+        <h2 class="text-center mb-5 fw-bold animate__animated animate__fadeInUp">Почему выбирают нас</h2>
         <div class="row text-center">
-            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
-                <div class="p-4 border rounded shadow-sm h-100 feature-card">
-                    <h4>Аналитика в реальном времени</h4>
-                    <p>Следите за метриками и оптимизируйте кампании моментально.</p>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 border-0 rounded-4 shadow-sm h-100 feature-card bg-light">
+                    <div class="mb-3 text-purple fs-1">📊</div>
+                    <h4 class="fw-bold">Real-time Аналитика</h4>
+                    <p class="text-muted">Мгновенные данные о ваших кампаниях без задержек.</p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
-                <div class="p-4 border rounded shadow-sm h-100 feature-card">
-                    <h4>Прогнозирование</h4>
-                    <p>Используйте машинное обучение для предсказания поведения игроков.</p>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 border-0 rounded-4 shadow-sm h-100 feature-card bg-light">
+                    <div class="mb-3 text-orange fs-1">🤖</div>
+                    <h4 class="fw-bold">ML Прогнозы</h4>
+                    <p class="text-muted">Предсказывайте LTV и отток игроков с точностью до 90%.</p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-3s">
-                <div class="p-4 border rounded shadow-sm h-100 feature-card">
-                    <h4>Рекомендации</h4>
-                    <p>Получайте советы по улучшению эффективности кампаний и ROI.</p>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 border-0 rounded-4 shadow-sm h-100 feature-card bg-light">
+                    <div class="mb-3 text-purple fs-1">💡</div>
+                    <h4 class="fw-bold">Smart Советы</h4>
+                    <p class="text-muted">Автоматические рекомендации по оптимизации ROI.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Тарифы -->
-<section id="pricing" class="py-5" style="background: #f3e5f5;">
+<section id="pricing" class="py-5" style="background-color: #f3e5f5;">
     <div class="container">
-        <h2 class="text-center mb-4 animate__animated animate__fadeInUp">Тарифы</h2>
-        <div class="row text-center">
-            <!-- Indie -->
-            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
-                <div class="card h-100 border-0 shadow-sm pricing-card">
-                    <div class="card-body">
-                        <h4 class="card-title text-purple">Indie</h4>
-                        <p class="card-text">До 5 кампаний, базовая аналитика</p>
-                        <h3>$29/мес</h3>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <h2 class="text-center mb-5 fw-bold">Выберите свой план</h2>
+        <div class="row text-center justify-content-center">
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow pricing-card rounded-4">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h4 class="card-title text-purple fw-bold">Indie</h4>
+                        <p class="text-muted">Для небольших студий</p>
+                        <hr>
+                        <ul class="list-unstyled mb-4 text-start">
+                            <li>✅ До 5 кампаний</li>
+                            <li>✅ Базовая аналитика</li>
+                            <li>✅ Поддержка в чате</li>
+                        </ul>
+                        <h3 class="mb-4 mt-auto fw-bold">$29<small class="fs-6 text-muted">/мес</small></h3>
+                        
+                        {% if user.is_authenticated %}
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                             <input type="hidden" name="cmd" value="_s-xclick">
                             <input type="hidden" name="hosted_button_id" value="INDIE_PAYPAL_ID">
-                            <input type="submit" class="btn btn-warning mt-3" value="Оплатить через PayPal">
+                            <button type="submit" class="btn btn-warning fw-bold w-100 py-2">Купить через PayPal</button>
                         </form>
+                        {% else %}
+                        <a href="{% url 'register' %}" class="btn btn-outline-primary fw-bold w-100 py-2">Зарегистрироваться</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            <!-- Pro -->
-            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
-                <div class="card h-100 border-0 shadow-sm pricing-card">
-                    <div class="card-body">
-                        <h4 class="card-title text-orange">Pro</h4>
-                        <p class="card-text">До 20 кампаний, расширенная аналитика и отчеты</p>
-                        <h3>$79/мес</h3>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow pricing-card rounded-4 border-orange">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h4 class="card-title text-orange fw-bold">Pro</h4>
+                        <p class="text-muted">Для растущих проектов</p>
+                        <hr>
+                        <ul class="list-unstyled mb-4 text-start">
+                            <li>✅ До 20 кампаний</li>
+                            <li>✅ ML Прогнозирование</li>
+                            <li>✅ Расширенные отчеты</li>
+                        </ul>
+                        <h3 class="mb-4 mt-auto fw-bold">$79<small class="fs-6 text-muted">/мес</small></h3>
+                        
+                        {% if user.is_authenticated %}
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                             <input type="hidden" name="cmd" value="_s-xclick">
                             <input type="hidden" name="hosted_button_id" value="PRO_PAYPAL_ID">
-                            <input type="submit" class="btn btn-warning mt-3" value="Оплатить через PayPal">
+                            <button type="submit" class="btn btn-warning fw-bold w-100 py-2">Купить через PayPal</button>
                         </form>
+                        {% else %}
+                        <a href="{% url 'register' %}" class="btn btn-outline-primary fw-bold w-100 py-2">Зарегистрироваться</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            <!-- Enterprise -->
-            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-3s">
-                <div class="card h-100 border-0 shadow-sm pricing-card">
-                    <div class="card-body">
-                        <h4 class="card-title text-purple">Enterprise</h4>
-                        <p class="card-text">Безлимитные кампании, премиум поддержка, кастомизация</p>
-                        <h3>$199/мес</h3>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow pricing-card rounded-4">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h4 class="card-title text-purple fw-bold">Enterprise</h4>
+                        <p class="text-muted">Для крупных издателей</p>
+                        <hr>
+                        <ul class="list-unstyled mb-4 text-start">
+                            <li>✅ Безлимитные кампании</li>
+                            <li>✅ Кастомная интеграция</li>
+                            <li>✅ Персональный менеджер</li>
+                        </ul>
+                        <h3 class="mb-4 mt-auto fw-bold">$199<small class="fs-6 text-muted">/мес</small></h3>
+                        
+                        {% if user.is_authenticated %}
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                             <input type="hidden" name="cmd" value="_s-xclick">
                             <input type="hidden" name="hosted_button_id" value="ENTERPRISE_PAYPAL_ID">
-                            <input type="submit" class="btn btn-warning mt-3" value="Оплатить через PayPal">
+                            <button type="submit" class="btn btn-warning fw-bold w-100 py-2">Купить через PayPal</button>
                         </form>
+                        {% else %}
+                        <a href="{% url 'register' %}" class="btn btn-outline-primary fw-bold w-100 py-2">Зарегистрироваться</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 
-<!-- Футер -->
-<footer class="text-white py-4" style="background: linear-gradient(90deg, #6a1b9a, #ff9800); position: relative; bottom: 0; width: 100%;">
+<footer class="text-white py-4" style="background: linear-gradient(90deg, #6a1b9a, #ff9800);">
     <div class="container text-center">
-        <p>© 2025 AdMetrix. Все права защищены.</p>
-        <p><a href="#contact" class="text-white">Контакты</a> | <a href="#features" class="text-white">Особенности</a></p>
+        <p class="mb-0 opacity-75">© 2025 AdMetrix. Все права защищены.</p>
     </div>
 </footer>
 
-<!-- Анимации и hover -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <style>
-    .pricing-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-    }
-    .feature-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
+    html { scroll-behavior: smooth; }
+    .pricing-card { transition: all 0.3s ease; border: 2px solid transparent; }
+    .pricing-card:hover { transform: translateY(-10px); }
+    .border-orange { border: 2px solid #ff9800 !important; }
+    .feature-card { transition: transform 0.3s ease; }
+    .feature-card:hover { transform: translateY(-5px); }
     .text-purple { color: #6a1b9a; }
     .text-orange { color: #ff9800; }
+    .btn-warning { background-color: #ff9800; border: none; color: white !important; }
+    .btn-warning:hover { background-color: #f57c00; box-shadow: 0 4px 15px rgba(255,152,0,0.4); }
 </style>
 
 {% endblock %}
