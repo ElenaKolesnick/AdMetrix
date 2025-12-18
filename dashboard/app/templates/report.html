@@ -1,23 +1,77 @@
 {% extends "base.html" %}
 {% block content %}
 <script src="https://cdn.flexmonster.com/flexmonster.js"></script>
+
 <style>
-    #pivot_chart {
-    margin-top: 20px;
+    /* 1. Настройка высоты: убираем прокрутку и растягиваем */
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* Убирает двойную прокрутку страницы */
+    }
+
+    #pivot {
+        height: calc(100vh - 20px) !important; /* Почти весь экран */
+        width: 100%;
+    }
+
+    /* 2. ЖЕСТКОЕ СКРЫТИЕ: подавляем элементы по их поведению */
+    
+    /* Скрываем центральный баннер (z-index: 1 из вашего DevTools) */
+    #pivot div[style*="z-index: 1"], 
+    #pivot div[style*="z-index:1"] {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* Скрываем нижний бар и все надписи "trial" */
+    .fm-branding-bar, 
+    .fm-trial-label, 
+    .fm-version-label,
+    div[class*="fm-watermark"] {
+        display: none !important;
+        height: 0 !important;
+    }
+
+    /* Убираем ссылку "Powered by" */
+    .fm-ui-label.fm-link, 
+    .fm-ui-container.fm-branding-bar {
+        display: none !important;
     }
 </style>
-    <div id="pivot"></div>
-    <div id="pivot_chart"></div>
-    <script type="text/javascript">
-    var pivot = new Flexmonster({
-    container: "#pivot",
-    componentFolder: "https://cdn.flexmonster.com/",
-    height: 600,
-    toolbar: true,
-    report: {
-        
-    }
-});
 
+<div id="pivot"></div>
+
+<script type="text/javascript">
+    // УДАЛИЛИ localStorage.clear(), чтобы страница не перезагружалась бесконечно
+
+    var pivot = new Flexmonster({
+        container: "#pivot",
+        licenseKey: "Z7PK-XBCB5U-1Z092I-1U120K",
+        componentFolder: "https://cdn.flexmonster.com/",
+        height: "100%", 
+        width: "100%",
+        toolbar: true,
+        report: {
+            // Ваши данные
+        }
+    });
+
+    // Функция для удаления надписи, если она пробилась динамически
+    function killWatermark() {
+        const divs = document.getElementsByTagName('div');
+        for (let i = 0; i < divs.length; i++) {
+            if (divs[i].innerText && (divs[i].innerText.includes("trial version") || divs[i].innerText.includes("Powered by"))) {
+                divs[i].style.display = 'none';
+            }
+        }
+    }
+
+    // Запускаем проверку сразу и через небольшие интервалы
+    pivot.on('ready', killWatermark);
+    pivot.on('afterdraw', killWatermark);
+    setInterval(killWatermark, 1000); 
 </script>
 {% endblock %}
