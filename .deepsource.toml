@@ -1,6 +1,22 @@
 version = 1
 
 [[analyzers]]
+name = "secrets"
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = [
+    "react",
+    "vue"
+  ]
+  environment = ["nodejs"]
+
+[[analyzers]]
+name = "sql"
+
+[[analyzers]]
 name = "python"
 
   [analyzers.meta]
@@ -11,3 +27,9 @@ name = "isort"
 
 [[code_formatters]]
 name = "black"
+
+[[code_formatters]]
+name = "prettier"
+
+[[code_formatters]]
+name = "standardjs"
