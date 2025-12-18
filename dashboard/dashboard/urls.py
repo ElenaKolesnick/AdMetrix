@@ -1,13 +1,13 @@
-from django.contrib import admin
-from django.urls import path, include
 # Эти два импорта нужны здесь:
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # Подключение вашего файла, который мы правили выше:
-    path('', include('app.urls')), 
+    path("", include("app.urls")),
 ]
 
 # Код для аватарок добавляется ВНЕ списка urlpatterns, в самый конец:

@@ -7,25 +7,32 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='GameMarketingData',
+            name="GameMarketingData",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateField(verbose_name='Дата')),
-                ('channel', models.CharField(max_length=50, verbose_name='Канал')),
-                ('country', models.CharField(max_length=50, verbose_name='Страна')),
-                ('os', models.CharField(max_length=20, verbose_name='ОС')),
-                ('impressions', models.IntegerField(verbose_name='Показы')),
-                ('clicks', models.IntegerField(verbose_name='Клики')),
-                ('installs', models.IntegerField(verbose_name='Установки')),
-                ('spend', models.FloatField(verbose_name='Затраты ($)')),
-                ('iap_revenue', models.FloatField(verbose_name='Доход IAP ($)')),
-                ('ad_revenue', models.FloatField(verbose_name='Доход с рекламы ($)')),
-                ('retention_d1', models.FloatField(verbose_name='Retention Day 1 (%)')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date", models.DateField(verbose_name="Дата")),
+                ("channel", models.CharField(max_length=50, verbose_name="Канал")),
+                ("country", models.CharField(max_length=50, verbose_name="Страна")),
+                ("os", models.CharField(max_length=20, verbose_name="ОС")),
+                ("impressions", models.IntegerField(verbose_name="Показы")),
+                ("clicks", models.IntegerField(verbose_name="Клики")),
+                ("installs", models.IntegerField(verbose_name="Установки")),
+                ("spend", models.FloatField(verbose_name="Затраты ($)")),
+                ("iap_revenue", models.FloatField(verbose_name="Доход IAP ($)")),
+                ("ad_revenue", models.FloatField(verbose_name="Доход с рекламы ($)")),
+                ("retention_d1", models.FloatField(verbose_name="Retention Day 1 (%)")),
             ],
         ),
     ]

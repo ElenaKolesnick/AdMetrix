@@ -1,159 +1,253 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container py-5">
-    <div class="row">
-        <div class="col-12">
-            <h3 class="fw-bold">Профиль</h3>
-            <p class="text-muted">Управляйте настройками аккаунта и подпиской</p>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <h3 class="fw-bold">Профиль</h3>
+      <p class="text-muted">Управляйте настройками аккаунта и подпиской</p>
     </div>
+  </div>
 
-    <ul class="nav nav-pills mb-4 bg-light p-2 rounded shadow-sm" id="profileTabs" role="tablist" style="max-width: fit-content;">
-        <li class="nav-item">
-            <a class="nav-link active" id="info-tab" data-toggle="pill" href="#info" role="tab">👤 Профиль</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="plan-tab" data-toggle="pill" href="#plan" role="tab">📋 Тариф</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">$ Платежи</a>
-        </li>
-    </ul>
+  <ul
+    class="nav nav-pills mb-4 bg-light p-2 rounded shadow-sm"
+    id="profileTabs"
+    role="tablist"
+    style="max-width: fit-content"
+  >
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="info-tab"
+        data-toggle="pill"
+        href="#info"
+        role="tab"
+        >👤 Профиль</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="plan-tab"
+        data-toggle="pill"
+        href="#plan"
+        role="tab"
+        >📋 Тариф</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+        >$ Платежи</a
+      >
+    </li>
+  </ul>
 
-    {% if form.errors %}
-    <div class="alert alert-danger shadow-sm">
-        <strong>Ошибка сохранения:</strong> пожалуйста, проверьте введенные данные.
-        {{ form.non_field_errors }}
-    </div>
-    {% endif %}
+  {% if form.errors %}
+  <div class="alert alert-danger shadow-sm">
+    <strong>Ошибка сохранения:</strong> пожалуйста, проверьте введенные данные.
+    {{ form.non_field_errors }}
+  </div>
+  {% endif %}
 
-    <div class="tab-content" id="profileTabsContent">
-        <div class="tab-pane fade show active" id="info" role="tabpanel">
-            <div class="card shadow-sm border-0 p-4 rounded-4">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-3 text-center border-right">
-                            <div class="mb-3 position-relative d-inline-block">
-                                {% if user.userprofile.avatar %}
-                                    <img src="{{ user.userprofile.avatar.url }}" class="rounded-circle shadow-sm border" style="width: 140px; height: 140px; object-fit: cover;">
-                                {% else %}
-                                    <div class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border" style="width: 140px; height: 140px;">
-                                        <span class="h1 mb-0 text-primary fw-bold">{{ user.username|slice:":2"|upper }}</span>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="mt-2">
-                                <label for="id_avatar" class="btn btn-sm btn-outline-primary px-3">Изменить фото</label>
-                                <div class="d-none">
-                                    {{ form.avatar }}
-                                </div>
-                                <small class="text-muted d-block mt-2">JPG, PNG до 1МБ</small>
-                            </div>
-                        </div>
-
-                        <div class="col-md-9">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="small fw-bold text-uppercase text-muted">Имя</label>
-                                    {{ form.full_name }}
-                                    <div class="text-danger small">{{ form.full_name.errors }}</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small fw-bold text-uppercase text-muted">Email</label>
-                                    <input type="text" class="form-control" value="{{ user.email }}" readonly disabled style="opacity: 0.7;">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small fw-bold text-uppercase text-muted">Компания</label>
-                                    {{ form.company_name }}
-                                    <div class="text-danger small">{{ form.company_name.errors }}</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small fw-bold text-uppercase text-muted">Телефон</label>
-                                    {{ form.phone }}
-                                    <div class="text-danger small">{{ form.phone.errors }}</div>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label class="small fw-bold text-uppercase text-muted">О себе</label>
-                                    {{ form.about }}
-                                    <div class="text-danger small">{{ form.about.errors }}</div>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <button type="submit" class="btn btn-dark px-5 py-2 fw-bold shadow-sm">Сохранить изменения</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="plan" role="tabpanel">
-            <div class="card shadow-sm border-0 p-4 rounded-4">
-                <h5 class="fw-bold mb-4">Информация о подписке</h5>
-                <div class="p-4 rounded-4 border" style="background: linear-gradient(45deg, #f8f9fa, #ffffff); border-left: 5px solid #ff9800 !important;">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <span class="badge bg-success px-3 py-2 mb-3 shadow-sm">Активен</span>
-                            <h2 class="fw-bold mb-1">{{ user.userprofile.subscription_plan|default:"Free" }}</h2>
-                            <p class="text-muted mb-0">
-                                {% if user.userprofile.subscription_end_date %}
-                                    Ваша подписка действует до: <strong class="text-dark">{{ user.userprofile.subscription_end_date|date:"d E Y" }}</strong>
-                                {% else %}
-                                    Тип аккаунта: <strong class="text-dark">Бессрочный доступ</strong>
-                                {% endif %}
-                            </p>
-                        </div>
-                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                            <a href="/#pricing" class="btn btn-warning fw-bold px-4 shadow-sm">Улучшить тариф</a>
-                        </div>
-                    </div>
+  <div class="tab-content" id="profileTabsContent">
+    <div class="tab-pane fade show active" id="info" role="tabpanel">
+      <div class="card shadow-sm border-0 p-4 rounded-4">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-3 text-center border-right">
+              <div class="mb-3 position-relative d-inline-block">
+                {% if user.userprofile.avatar %}
+                <img
+                  src="{{ user.userprofile.avatar.url }}"
+                  class="rounded-circle shadow-sm border"
+                  style="width: 140px; height: 140px; object-fit: cover"
+                />
+                {% else %}
+                <div
+                  class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
+                  style="width: 140px; height: 140px"
+                >
+                  <span class="h1 mb-0 text-primary fw-bold"
+                    >{{ user.username|slice:":2"|upper }}</span
+                  >
                 </div>
+                {% endif %}
+              </div>
+
+              <div class="mt-2">
+                <label
+                  for="id_avatar"
+                  class="btn btn-sm btn-outline-primary px-3"
+                  >Изменить фото</label
+                >
+                <div class="d-none">{{ form.avatar }}</div>
+                <small class="text-muted d-block mt-2">JPG, PNG до 1МБ</small>
+              </div>
             </div>
-        </div>
+
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="small fw-bold text-uppercase text-muted"
+                    >Имя</label
+                  >
+                  {{ form.full_name }}
+                  <div class="text-danger small">
+                    {{ form.full_name.errors }}
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="small fw-bold text-uppercase text-muted"
+                    >Email</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ user.email }}"
+                    readonly
+                    disabled
+                    style="opacity: 0.7"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="small fw-bold text-uppercase text-muted"
+                    >Компания</label
+                  >
+                  {{ form.company_name }}
+                  <div class="text-danger small">
+                    {{ form.company_name.errors }}
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="small fw-bold text-uppercase text-muted"
+                    >Телефон</label
+                  >
+                  {{ form.phone }}
+                  <div class="text-danger small">{{ form.phone.errors }}</div>
+                </div>
+                <div class="col-md-12 mb-3">
+                  <label class="small fw-bold text-uppercase text-muted"
+                    >О себе</label
+                  >
+                  {{ form.about }}
+                  <div class="text-danger small">{{ form.about.errors }}</div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <button
+                  type="submit"
+                  class="btn btn-dark px-5 py-2 fw-bold shadow-sm"
+                >
+                  Сохранить изменения
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+
+    <div class="tab-pane fade" id="plan" role="tabpanel">
+      <div class="card shadow-sm border-0 p-4 rounded-4">
+        <h5 class="fw-bold mb-4">Информация о подписке</h5>
+        <div
+          class="p-4 rounded-4 border"
+          style="
+            background: linear-gradient(45deg, #f8f9fa, #ffffff);
+            border-left: 5px solid #ff9800 !important;
+          "
+        >
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <span class="badge bg-success px-3 py-2 mb-3 shadow-sm"
+                >Активен</span
+              >
+              <h2 class="fw-bold mb-1">
+                {{ user.userprofile.subscription_plan|default:"Free" }}
+              </h2>
+              <p class="text-muted mb-0">
+                {% if user.userprofile.subscription_end_date %} Ваша подписка
+                действует до:
+                <strong class="text-dark"
+                  >{{ user.userprofile.subscription_end_date|date:"d E Y"
+                  }}</strong
+                >
+                {% else %} Тип аккаунта:
+                <strong class="text-dark">Бессрочный доступ</strong>
+                {% endif %}
+              </p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+              <a href="/#pricing" class="btn btn-warning fw-bold px-4 shadow-sm"
+                >Улучшить тариф</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
-    /* Навигация */
-    .nav-pills .nav-link { color: #6c757d; border-radius: 8px; padding: 10px 24px; font-weight: 500; transition: 0.2s; }
-    .nav-pills .nav-link.active { background-color: #fff !important; color: #0d6efd !important; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-    .nav-link.disabled { opacity: 0.5; }
+  /* Навигация */
+  .nav-pills .nav-link {
+    color: #6c757d;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+  .nav-pills .nav-link.active {
+    background-color: #fff !important;
+    color: #0d6efd !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  .nav-link.disabled {
+    opacity: 0.5;
+  }
 
-    /* Формы */
-    .form-control { 
-        background-color: #fcfcfc !important; 
-        border: 1px solid #dee2e6 !important; 
-        border-radius: 10px !important;
-        padding: 10px 15px !important;
-        transition: 0.2s;
+  /* Формы */
+  .form-control {
+    background-color: #fcfcfc !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 10px !important;
+    padding: 10px 15px !important;
+    transition: 0.2s;
+  }
+  .form-control:focus {
+    background-color: #fff !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1) !important;
+  }
+
+  .border-right {
+    border-right: 1px solid #f0f0f0;
+  }
+  @media (max-width: 768px) {
+    .border-right {
+      border-right: none;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
     }
-    .form-control:focus { 
-        background-color: #fff !important;
-        border-color: #0d6efd !important; 
-        box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1) !important; 
-    }
-    
-    .border-right { border-right: 1px solid #f0f0f0; }
-    @media (max-width: 768px) { .border-right { border-right: none; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; margin-bottom: 20px; } }
+  }
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Восстановление вкладки после перезагрузки
-        var activeTab = localStorage.getItem('activeTab');
-        if(activeTab){
-            var tabEl = document.querySelector('a[href="' + activeTab + '"]');
-            if (tabEl) {
-                $(tabEl).tab('show');
-            }
-        }
+  document.addEventListener("DOMContentLoaded", function () {
+    // Восстановление вкладки после перезагрузки
+    var activeTab = localStorage.getItem("activeTab");
+    if (activeTab) {
+      var tabEl = document.querySelector('a[href="' + activeTab + '"]');
+      if (tabEl) {
+        $(tabEl).tab("show");
+      }
+    }
 
-        // Сохранение активной вкладки
-        $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
-            localStorage.setItem('activeTab', e.target.getAttribute('href'));
-        });
+    // Сохранение активной вкладки
+    $('a[data-toggle="pill"]').on("shown.bs.tab", function (e) {
+      localStorage.setItem("activeTab", e.target.getAttribute("href"));
     });
+  });
 </script>
 {% endblock %}
