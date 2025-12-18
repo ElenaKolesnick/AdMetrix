@@ -6,18 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0003_userprofile'),
+        ("app", "0003_userprofile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='subscription_end_date',
-            field=models.DateField(blank=True, null=True, verbose_name='Дата окончания подписки'),
+            model_name="userprofile",
+            name="subscription_end_date",
+            field=models.DateField(
+                blank=True, null=True, verbose_name="Дата окончания подписки"
+            ),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='subscription_plan',
-            field=models.CharField(choices=[('Free', 'Free'), ('Indie', 'Indie'), ('Pro', 'Pro'), ('Enterprise', 'Enterprise')], default='Free', max_length=20, verbose_name='Тариф'),
+            model_name="userprofile",
+            name="subscription_plan",
+            field=models.CharField(
+                choices=[
+                    ("Free", "Free"),
+                    ("Indie", "Indie"),
+                    ("Pro", "Pro"),
+                    ("Enterprise", "Enterprise"),
+                ],
+                default="Free",
+                max_length=20,
+                verbose_name="Тариф",
+            ),
         ),
     ]
