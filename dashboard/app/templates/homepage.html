@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Шапка -->
+<header class="navbar navbar-expand-lg navbar-light" style="background: linear-gradient(90deg, #6a1b9a, #ff9800); position: sticky; top: 0; z-index: 1000;">
+    <div class="container">
+        <a class="navbar-brand text-white fw-bold" href="#">AdMetrix</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link text-white" href="#features">Особенности</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#pricing">Тарифы</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="text-center py-5" style="background: linear-gradient(180deg, #d1c4e9, #ffe0b2);">
+    <div class="container">
+        <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">AdMetrix Dashboard</h1>
+        <p class="lead text-dark animate__animated animate__fadeInUp">Анализируйте кампании, предсказывайте поведение игроков и растите ваш проект</p>
+        <a href="#pricing" class="btn btn-lg btn-warning fw-bold animate__animated animate__fadeInUp animate__delay-1s">Начать сейчас</a>
+    </div>
+</section>
+
+<!-- Особенности -->
+<section id="features" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4 animate__animated animate__fadeInUp">Особенности</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="p-4 border rounded shadow-sm h-100 feature-card">
+                    <h4>Аналитика в реальном времени</h4>
+                    <p>Следите за метриками и оптимизируйте кампании моментально.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="p-4 border rounded shadow-sm h-100 feature-card">
+                    <h4>Прогнозирование</h4>
+                    <p>Используйте машинное обучение для предсказания поведения игроков.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-3s">
+                <div class="p-4 border rounded shadow-sm h-100 feature-card">
+                    <h4>Рекомендации</h4>
+                    <p>Получайте советы по улучшению эффективности кампаний и ROI.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Тарифы -->
+<section id="pricing" class="py-5" style="background: #f3e5f5;">
+    <div class="container">
+        <h2 class="text-center mb-4 animate__animated animate__fadeInUp">Тарифы</h2>
+        <div class="row text-center">
+            <!-- Indie -->
+            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="card h-100 border-0 shadow-sm pricing-card">
+                    <div class="card-body">
+                        <h4 class="card-title text-purple">Indie</h4>
+                        <p class="card-text">До 5 кампаний, базовая аналитика</p>
+                        <h3>$29/мес</h3>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="INDIE_PAYPAL_ID">
+                            <input type="submit" class="btn btn-warning mt-3" value="Оплатить через PayPal">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Pro -->
+            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="card h-100 border-0 shadow-sm pricing-card">
+                    <div class="card-body">
+                        <h4 class="card-title text-orange">Pro</h4>
+                        <p class="card-text">До 20 кампаний, расширенная аналитика и отчеты</p>
+                        <h3>$79/мес</h3>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="PRO_PAYPAL_ID">
+                            <input type="submit" class="btn btn-warning mt-3" value="Оплатить через PayPal">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Enterprise -->
+            <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-3s">
+                <div class="card h-100 border-0 shadow-sm pricing-card">
+                    <div class="card-body">
+                        <h4 class="card-title text-purple">Enterprise</h4>
+                        <p class="card-text">Безлимитные кампании, премиум поддержка, кастомизация</p>
+                        <h3>$199/мес</h3>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="ENTERPRISE_PAYPAL_ID">
+                            <input type="submit" class="btn btn-warning mt-3" value="Оплатить через PayPal">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Футер -->
+<footer class="text-white py-4" style="background: linear-gradient(90deg, #6a1b9a, #ff9800); position: relative; bottom: 0; width: 100%;">
+    <div class="container text-center">
+        <p>© 2025 AdMetrix. Все права защищены.</p>
+        <p><a href="#contact" class="text-white">Контакты</a> | <a href="#features" class="text-white">Особенности</a></p>
+    </div>
+</footer>
+
+<!-- Анимации и hover -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+    .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    .text-purple { color: #6a1b9a; }
+    .text-orange { color: #ff9800; }
+</style>
+
+{% endblock %}
