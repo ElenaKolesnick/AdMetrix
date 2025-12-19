@@ -1,15 +1,17 @@
 from django.contrib import admin
 from django.urls import path, include
-# Эти два импорта нужны здесь:
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # Главная панель администратора
     path('admin/', admin.site.urls),
-    # Подключение вашего файла, который мы правили выше:
+    
+    # Подключение маршрутов приложения "app"
+    # Все URL, не подходящие под 'admin/', будут искаться в app/urls.py
     path('', include('app.urls')), 
 ]
 
-# Код для аватарок добавляется ВНЕ списка urlpatterns, в самый конец:
+# Обслуживание медиа-файлов (аватарок, документов) в режиме разработки
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

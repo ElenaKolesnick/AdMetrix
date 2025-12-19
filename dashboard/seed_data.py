@@ -8,6 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dashboard.settings')
 django.setup()
 
 from django.contrib.auth.models import User
+print(User.objects.all())
 from app.models import GameMarketingData
 
 def seed_db():

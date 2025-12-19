@@ -3,14 +3,12 @@
 <script src="https://cdn.flexmonster.com/flexmonster.js"></script>
 
 <style>
-    /* Убираем overflow у body, чтобы не было двойной прокрутки с шапкой */
     html, body {
         height: 100%;
         margin: 0;
     }
 
     #pivot-container {
-        /* Вычитаем высоту шапки (примерно 60-70px), чтобы отчет вписался в экран */
         height: calc(100vh - 70px); 
         width: 100%;
         padding: 10px;
@@ -22,7 +20,6 @@
         width: 100%;
     }
 
-    /* Скрытие водяных знаков */
     #pivot div[style*="z-index: 1"], 
     #pivot div[style*="z-index:1"],
     .fm-branding-bar, .fm-trial-label, .fm-version-label,
@@ -60,7 +57,6 @@
                 measures: [
                     { uniqueName: "installs", aggregation: "sum", caption: "Установки" },
                     { uniqueName: "spend", aggregation: "sum", caption: "Затраты ($)" },
-                    // Поля для расчетов (скрытые)
                     { uniqueName: "iap_revenue", aggregation: "sum", active: false },
                     { uniqueName: "ad_revenue", aggregation: "sum", active: false },
                     { 
@@ -84,7 +80,6 @@
         }
     });
 
-    // Функция для очистки интерфейса от лишних надписей
     function killWatermark() {
         const divs = document.getElementsByTagName('div');
         for (let i = 0; i < divs.length; i++) {
