@@ -1,80 +1,46 @@
-# Data-analytics-Dashboard
+# AdMetrix 📊
 
-The **Data Analytics Dashboard** is a web application built using the Django framework that provides a user-friendly interface for performing data analysis tasks. This README will guide you through the installation process and how to run the application locally.
+**AdMetrix** — это аналитическая платформа на базе Django, предназначенная для визуализации маркетинговых данных игровых проектов с использованием Flexmonster.
 
-## Installation
 
-To get started with the Django Data Analysis Dashboard, follow these steps:
 
-### 1. Prerequisites
+## 🚀 Основные возможности
 
-Before you begin, ensure that you have the following installed on your system:
+* **Аналитический дашборд**: Интеграция с Flexmonster для глубокого анализа данных.
+* **Личный кабинет**: Управление профилем пользователя и персональные настройки.
+* **Авторизация**: Безопасная система регистрации и входа (Django Auth).
+* **Адаптивность**: Интерфейс на Bootstrap 4, корректно работающий на мобильных устройствах.
 
-- Python (>= 3.6)
-- pip (Python package manager)
+## 🛠 Технологии
 
-### 2. Clone the Repository
+* **Backend**: Python 3.x, Django 4.x/5.x
+* **Frontend**: Bootstrap 4, jQuery, Inter Font
+* **База данных**: SQLite (по умолчанию) / PostgreSQL
+* **Аналитика**: Flexmonster Pivot Table & Charts
 
-Clone this repository to your local machine using Git:
+## 📦 Установка и запуск
 
-```bash
-git clone https://github.com/avd1729/Data-analytics-Dashboard.git
-```
+1. **Клонируйте репозиторий:**
+   ```bash
+   git clone [https://github.com/ElenaKolesnick/AdMetrix-Games.git](https://github.com/ElenaKolesnick/AdMetrix-Games.git)
+   cd admetrix
+Создайте и активируйте виртуальное окружение:
 
-### 3. Create a Virtual Environment (Optional but Recommended)
+Bash
 
-Navigate to the project directory and create a virtual environment. This step is optional but highly recommended to isolate dependencies for this project:
-
-```bash
-cd dashboard
 python -m venv venv
-```
-
-Activate the virtual environment:
-
-- On Windows:
-
-```bash
+# Для Windows:
 venv\Scripts\activate
-```
-
-- On macOS and Linux:
-
-```bash
+# Для macOS/Linux:
 source venv/bin/activate
-```
+Установите зависимости:
 
-### 4. Install Dependencies
+Bash
 
-Install the required Python packages listed in the `requirements.txt` file:
+pip install django
+Выполните миграции и запустите сервер:
 
-```bash
-pip install -r requirements.txt
-```
+Bash
 
-### 5. Database Setup
-
-Run the following command to create the necessary database tables:
-
-```bash
 python manage.py migrate
-```
-
-### 6. Running the Application
-
-Start the development server by running the following command:
-
-```bash
 python manage.py runserver
-```
-
-The application should now be running locally at `http://127.0.0.1:8000/`.
-
-### 7.Sample
-
-<img width="1280" alt="image" src="https://github.com/avd1729/Data-analytics-Dashboard/assets/94891044/c3007d97-6f77-47f0-a106-436c6e2e2c74">
-
-
-## Usage
-
-Open your web browser and navigate to `http://127.0.0.1:8000/` to access the Django Data Analysis Dashboard. The dashboard provides an intuitive interface to perform various data analysis tasks.

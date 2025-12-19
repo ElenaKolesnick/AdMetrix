@@ -3,12 +3,12 @@
     "development"
   ],
   "hints": {
-    "meta-viewport": "off",
-    "meta-charset-utf-8": "off",
-    "axe/text-alternatives": [
+    "meta-viewport": "off",        // Отключает проверку тега viewport (адаптивность)
+    "meta-charset-utf-8": "off",   // Отключает обязательную проверку кодировки UTF-8
+    "axe/text-alternatives": [     // Настройка альтернативного текста (доступность)
       "default",
       {
-        "image-alt": "off"
+        "image-alt": "off"         // Отключает требование атрибута alt для изображений
       }
     ]
   }
