@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-xl-6">
+            <div class="card border-0 shadow">
+                <div class="card-header border-bottom text-center">
+                    <h2 class="h5 mb-0">Импорт маркетинговых данных</h2>
+                </div>
+                <div class="card-body text-center">
+                    <div class="py-4">
+                        <svg class="icon icon-xl text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        
+                        <p class="text-gray-600">Загрузите файл в формате <b>.csv</b>. <br> Система автоматически распределит данные по вашим отчетам.</p>
+                    </div>
+
+                    <form method="POST" action="{% url 'import' %}" enctype="multipart/form-data" class="mt-2">
+                        {% csrf_token %}
+    
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.errors }}
+                        </div>
+                        {% endif %}
+
+                        <div class="mb-4">
+                            {{ form.csv_file }}
+                        </div>
+                        <button type="submit" class="btn btn-gray-800 w-100">
+                            Начать импорт
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer bg-light border-0">
+                    <small class="text-gray-500">
+                        <b>Важно:</b> Формат колонок должен быть следующим: <br>
+                        Дата, Канал, Страна, ОС, Показы, Клики, Установки, Затраты, IAP, Ad, Retention.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Стилизуем стандартный выбор файла */
+    input[type=file]::file-selector-button {
+        margin-right: 20px;
+        border: none;
+        background: #1f2937;
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: #fff;
+        cursor: pointer;
+        transition: background .2s ease-in-out;
+    }
+    input[type=file]::file-selector-button:hover {
+        background: #374151;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Настройки профиля | AdMetrix{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div>
+        <h2 class="h4">Настройки профиля</h2>
+        <p class="mb-0">Управляйте личными данными и параметрами вашей подписки.</p>
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-12 col-xl-8">
+            <div class="nav-wrapper position-relative mb-4">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0 active" id="info-tab" data-bs-toggle="pill" href="#info" role="tab" aria-selected="true">
+                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                            Личные данные
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="plan-tab" data-bs-toggle="pill" href="#plan" role="tab" aria-selected="false">
+                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                            Тарифный план
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content" id="profileTabsContent">
+                <div class="tab-pane fade show active" id="info" role="tabpanel">
+                    <div class="card card-body border-0 shadow mb-4">
+                        <h2 class="h5 mb-4">Общая информация</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="full_name">Полное имя</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></span>
+                                    {{ form.full_name }}
+                                </div>
+                                {% if form.full_name.errors %}<div class="text-danger small">{{ form.full_name.errors }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg></span>
+                                    {{ form.email }}
+                                </div>
+                                {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors }}</div>{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Компания</label>
+                                {{ form.company_name }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Телефон</label>
+                                {{ form.phone }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Индустрия</label>
+                                {{ form.industry }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Сайт проекта</label>
+                                {{ form.website }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label>О себе</label>
+                                {{ form.about }}
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-gray-800 mt-2 animate-up-2">Сохранить всё</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="plan" role="tabpanel">
+                    <div class="card card-body border-0 shadow mb-4">
+                        <h2 class="h5 mb-4">Текущий тариф</h2>
+                        <div class="d-flex align-items-center justify-content-between p-4 bg-light rounded shadow-inset">
+                            <div>
+                                <span class="badge bg-success mb-2">Активен</span>
+                                <h3 class="h2 fw-extrabold mb-1">{{ user.profile.subscription_plan|default:"Free" }}</h3>
+                                <p class="text-gray-600 mb-0">
+                                    {% if user.profile.subscription_end_date %}
+                                    Доступ открыт до {{ user.profile.subscription_end_date|date:"d.m.Y" }}
+                                    {% else %}
+                                    Безлимитный доступ
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div>
+                                <a href="/#pricing" class="btn btn-secondary animate-up-2">Улучшить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-4">
+            <div class="card card-body border-0 shadow mb-4 text-center">
+                <h2 class="h5 mb-4">Фото профиля</h2>
+                <div class="avatar-xl mx-auto mb-4">
+                    {% if user.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" class="rounded-circle border-white border-3 shadow-lg" style="width: 120px; height: 120px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-gray-200 rounded-circle d-flex align-items-center justify-content-center border-white border-3 shadow-lg" style="width: 120px; height: 120px;">
+                            <span class="h1 mb-0 text-gray-500">{{ user.username|slice:":1"|upper }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="file-field">
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex align-items-center">
+                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path></svg>
+                            {{ form.avatar }}
+                        </div>
+                    </div>
+                    <div class="small text-gray-500 mt-2">JPG или PNG. Макс 1МБ</div>
+                </div>
+            </div>
+            
+            <div class="card card-body border-0 shadow mb-4">
+                <h2 class="h5 mb-4">Настройки системы</h2>
+                <div class="mb-3">
+                    <label>Часовой пояс</label>
+                    {{ form.timezone }}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    .nav-pills .nav-link.active {
+        background-color: #1f2937 !important;
+        color: #fff !important;
+    }
+    .shadow-inset {
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
+    }
+    /* Стилизация input type="file" для Volt */
+    input[type=file] {
+        font-size: 0.8rem;
+    }
+    input[type=file]::file-selector-button {
+        border: none;
+        background: #1f2937;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: background .2s ease-in-out;
+    }
+    input[type=file]::file-selector-button:hover {
+        background: #374151;
+    }
+</style>
+{% endblock %}

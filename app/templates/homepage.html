@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title_header %}
+{% endblock %}
+
+{% block content %}
+<style>
+    /* ЖЕСТКОЕ ПЕРЕКРЫТИЕ ВЕРХНЕЙ ПАНЕЛИ */
+    #content-wrapper, 
+    #content, 
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Находим белую панель по тексту и структуре и уничтожаем её визуально */
+    .card.card-body.shadow-sm.mb-4, 
+    [class*="topbar"], 
+    header, 
+    .navbar { 
+        display: none !important; 
+    }
+
+    /* Если панель все равно видна, этот код поднимет лендинг вверх и накроет её */
+    main, .content-wrapper {
+        margin-top: -100px !important; /* Поднимаем контент, чтобы перекрыть хедер */
+        position: relative;
+        z-index: 999;
+    }
+
+    /* ФИКС ФУТЕРА */
+    /* Прячем всё, что не является нашим черным футером */
+    body > footer:not([style*="background-color: #1a1a1a"]),
+    .sticky-footer,
+    footer:not([style*="background-color: #1a1a1a"]) { 
+        display: none !important; 
+        height: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Стили лендинга */
+    html { scroll-behavior: smooth; }
+    .pricing-card, .feature-card { transition: all 0.3s ease; }
+    .pricing-card:hover, .feature-card:hover { transform: translateY(-10px); }
+    .border-orange { border: 2px solid #ff9800 !important; }
+    .btn-warning { background-color: #ff9800 !important; border: none; color: white !important; }
+    .accordion-button:not(.collapsed) { background-color: #f3e5f5; color: #6a1b9a; }
+</style>
+
+<section class="text-center py-5 d-flex align-items-center" style="background: linear-gradient(180deg, #d1c4e9, #ffe0b2); min-height: 60vh; position: relative; z-index: 1000;">
+    <div class="container py-5">
+        <h1 class="display-3 fw-bold animate__animated animate__fadeInDown" style="color: #311b92;">AdMetrix Dashboard</h1>
+        <p class="lead text-dark mb-4 animate__animated animate__fadeInUp">Анализируйте кампании, предсказывайте поведение игроков и растите ваш проект.</p>
+        <a href="{% url 'register' %}" class="btn btn-lg btn-warning fw-bold px-5 py-3 shadow animate__animated animate__fadeInUp">Начать работу</a>
+    </div>
+</section>
+
+<section id="features" class="py-5 bg-white">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Почему выбирают нас</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="p-4 shadow-sm h-100 bg-light rounded feature-card">
+                    <div class="mb-3 fs-1">📊</div>
+                    <h4 class="fw-bold">Real-time Аналитика</h4>
+                    <p class="text-muted">Мгновенные данные о ваших кампаниях без задержек.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 shadow-sm h-100 bg-light rounded feature-card">
+                    <div class="mb-3 fs-1">🤖</div>
+                    <h4 class="fw-bold">ML Прогнозы</h4>
+                    <p class="text-muted">Предсказывайте LTV и отток игроков с высокой точностью.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 shadow-sm h-100 bg-light rounded feature-card">
+                    <div class="mb-3 fs-1">💡</div>
+                    <h4 class="fw-bold">Smart Советы</h4>
+                    <p class="text-muted">Автоматические рекомендации по оптимизации вашего ROI.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="py-5" style="background-color: #f3e5f5;">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Выберите свой план</h2>
+        <div class="row text-center justify-content-center">
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow pricing-card rounded-4">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h4 class="fw-bold" style="color: #6a1b9a;">Indie</h4>
+                        <p class="text-muted">Для малых студий</p>
+                        <hr>
+                        <ul class="list-unstyled mb-4 text-start">
+                            <li><i class="fas fa-check text-success me-2"></i>До 5 кампаний</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Базовая аналитика</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Импорт CSV</li>
+                            <li><i class="fas fa-times text-danger me-2"></i>ML Прогнозы</li>
+                        </ul>
+                        <h3 class="mb-4 mt-auto fw-bold">$29<small class="fs-6 text-muted">/мес</small></h3>
+                        
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bill@admetrix.online&item_name=AdMetrix+Indie+Plan&amount=29.00&currency_code=USD" 
+                           class="btn btn-outline-primary fw-bold w-100 py-2 d-flex align-items-center justify-content-center">
+                           <i class="fab fa-paypal me-2"></i> Купить Indie
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow pricing-card rounded-4 border-orange position-relative" style="border: 2px solid #ff9800 !important;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="badge bg-warning text-dark position-absolute top-0 end-0 m-3 px-3">BEST</div>
+                        <h4 class="fw-bold" style="color: #ff9800;">Pro</h4>
+                        <p class="text-muted">Для профи</p>
+                        <hr>
+                        <ul class="list-unstyled mb-4 text-start">
+                            <li><i class="fas fa-check text-success me-2"></i>До 20 кампаний</li>
+                            <li><i class="fas fa-check text-success me-2"></i>ML Прогнозирование</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Карта мира (Heatmaps)</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Приоритетный импорт</li>
+                        </ul>
+                        <h3 class="mb-4 mt-auto fw-bold">$79<small class="fs-6 text-muted">/мес</small></h3>
+                        
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bill@admetrix.online&item_name=AdMetrix+Pro+Plan&amount=79.00&currency_code=USD" 
+                           class="btn btn-warning fw-bold w-100 text-white shadow py-2 d-flex align-items-center justify-content-center">
+                           <i class="fab fa-paypal me-2"></i> Купить Pro
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow pricing-card rounded-4">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h4 class="fw-bold" style="color: #6a1b9a;">Enterprise</h4>
+                        <p class="text-muted">Для издателей</p>
+                        <hr>
+                        <ul class="list-unstyled mb-4 text-start">
+                            <li><i class="fas fa-check text-success me-2"></i>Безлимит</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Персональный менеджер</li>
+                            <li><i class="fas fa-check text-success me-2"></i>API интеграция</li>
+                            <li><i class="fas fa-check text-success me-2"></i>White-label отчеты</li>
+                        </ul>
+                        <h3 class="mb-4 mt-auto fw-bold">$199<small class="fs-6 text-muted">/мес</small></h3>
+                        
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bill@admetrix.online&item_name=AdMetrix+Enterprise+Plan&amount=199.00&currency_code=USD" 
+                           class="btn btn-outline-primary fw-bold w-100 py-2 d-flex align-items-center justify-content-center">
+                           <i class="fab fa-paypal me-2"></i> Купить Enterprise
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="py-5 bg-white">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Вопросы и ответы</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion accordion-flush shadow-sm rounded border" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                Как работает ML-прогнозирование?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Наша модель анализирует ваши исторические данные (затраты, установки, доход) и с помощью линейной регрессии предсказывает будущую окупаемость при текущих темпах.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                Могу ли я отменить подписку?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Да, вы можете отменить подписку в любое время в личном кабинете. Доступ к функциям сохранится до конца оплаченного периода.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="py-5" style="background-color: #1a1a1a; color: #ffffff; position: relative; z-index: 1001;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold mb-3" style="color: #ff9800;">AdMetrix</h5>
+                <p class="small" style="color: #bbbbbb;">Профессиональный инструмент для анализа маркетинговой эффективности мобильных игр. Делаем данные понятными.</p>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold mb-3" style="color: #ff9800;">Продукт</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#features" class="text-decoration-none" style="color: #bbbbbb;">Функции</a></li>
+                    <li><a href="#pricing" class="text-decoration-none" style="color: #bbbbbb;">Тарифы</a></li>
+                    <li><a href="{% url 'learning' %}" class="text-decoration-none" style="color: #bbbbbb;">Глоссарий</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3" style="color: #ff9800;">Аккаунт</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="{% url 'login' %}" class="text-decoration-none" style="color: #bbbbbb;">Вход</a></li>
+                    <li><a href="{% url 'register' %}" class="text-decoration-none" style="color: #bbbbbb;">Регистрация</a></li>
+                    <li><a href="{% url 'profile' %}" class="text-decoration-none" style="color: #bbbbbb;">Мой профиль</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3" style="color: #ff9800;">Контакты</h6>
+                <p class="small mb-1" style="color: #bbbbbb;">support@admetrix.online</p>
+                <p class="small" style="color: #bbbbbb;">г. Минск, ул. Гикало, 9</p>
+            </div>
+        </div>
+        <hr style="border-color: #333;">
+        <div class="text-center small" style="color: #888888;">
+            &copy; 2026 AdMetrix. Все права защищены.
+        </div>
+    </div>
+</footer>
+{% endblock %}

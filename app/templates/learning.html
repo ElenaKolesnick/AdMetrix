@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Обучение и метрики — AdMetrix{% endblock %}
+
+{% block content %}
+<style>
+    /* 1. Базовые стили и карточки видео */
+    .learning-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .learning-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    .video-placeholder {
+        background: #212529;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+    }
+    .video-placeholder i {
+        font-size: 3.5rem;
+        opacity: 0.7;
+    }
+    .video-placeholder:hover i {
+        opacity: 1;
+        color: #ff0000;
+    }
+    .step-number {
+        width: 30px;
+        height: 30px;
+        background: #6a1b9a;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+    }
+
+    /* 2. Стили для Hero-блока и кнопок */
+    .hero-section {
+        background: linear-gradient(135deg, #6a1b9a 0%, #4a148c 100%);
+        border-radius: 16px;
+        color: white;
+    }
+    .btn-download-csv {
+        background-color: #ffffff !important;
+        color: #6a1b9a !important;
+        border: 2px solid #ffffff !important;
+        font-weight: 800;
+        transition: all 0.3s;
+    }
+    .btn-download-csv:hover {
+        background-color: #f3e5f5 !important;
+        transform: scale(1.05);
+    }
+    .btn-outline-white {
+        color: white !important;
+        border: 2px solid rgba(255,255,255,0.6) !important;
+        font-weight: 600;
+    }
+
+    /* 3. Стили для метрик и формул */
+    .metric-card {
+        border-left: 5px solid #6366f1;
+        transition: transform 0.2s;
+        background: white;
+    }
+    .metric-card:hover {
+        transform: translateX(5px);
+    }
+    .formula-badge {
+        background: #f8f9fa;
+        border: 1px dashed #cbd5e1;
+        padding: 8px;
+        font-family: 'Courier New', monospace;
+        color: #1e293b;
+        display: block;
+        margin-top: 10px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="container py-5">
+    
+    <div class="hero-section p-5 mb-5 shadow-lg">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-6 fw-bold mb-3">Быстрый старт с данными</h1>
+                <p class="lead opacity-90 mb-4">Используйте наш эталонный CSV-шаблон для корректной работы аналитики. Это гарантирует точность всех графиков.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% static 'templates/admetrix_template.csv' %}" class="btn btn-download-csv px-4 py-2 shadow">
+                        <i class="fas fa-file-csv me-2"></i> СКАЧАТЬ ШАБЛОН CSV
+                    </a>
+                    <a href="#requirements" class="btn btn-outline-white px-4 py-2 text-decoration-none">
+                        ТРЕБОВАНИЯ К ФАЙЛУ
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 d-none d-md-block text-center">
+                <i class="fas fa-database fa-10x opacity-20"></i>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-4 fw-bold">3 шага к отчету</h4>
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="d-flex align-items-center mb-3">
+                <div class="step-number">1</div>
+                <h6 class="mb-0 fw-bold">Подготовка</h6>
+            </div>
+            <p class="small text-muted">Заполните колонки: <b>date</b>, <b>channel</b>, <b>country</b>, <b>spend</b> и <b>installs</b>.</p>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex align-items-center mb-3">
+                <div class="step-number">2</div>
+                <h6 class="mb-0 fw-bold">Загрузка</h6>
+            </div>
+            <p class="small text-muted">Перейдите в раздел "Импорт" и выберите ваш файл. Мы поддерживаем форматы .csv и .xlsx.</p>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex align-items-center mb-3">
+                <div class="step-number">3</div>
+                <h6 class="mb-0 fw-bold">Анализ</h6>
+            </div>
+            <p class="small text-muted">Система автоматически построит графики ROAS и карту мира на странице отчетов.</p>
+        </div>
+    </div>
+
+    <h4 class="mb-4 fw-bold"><i class="fas fa-play-circle me-2 text-primary"></i>Видео-уроки</h4>
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card learning-card shadow-sm h-100">
+                <div class="video-placeholder"><i class="fab fa-youtube"></i></div>
+                <div class="card-body">
+                    <h6 class="fw-bold">Обзор интерфейса</h6>
+                    <p class="small text-muted">Где найти основные метрики и как пользоваться фильтрами.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card learning-card shadow-sm h-100">
+                <div class="video-placeholder"><i class="fab fa-youtube"></i></div>
+                <div class="card-body">
+                    <h6 class="fw-bold">Ошибки импорта</h6>
+                    <p class="small text-muted">Что делать, если система не принимает ваш CSV файл.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card learning-card shadow-sm h-100">
+                <div class="video-placeholder"><i class="fab fa-youtube"></i></div>
+                <div class="card-body">
+                    <h6 class="fw-bold">LTV и Retention</h6>
+                    <p class="small text-muted">Как анализировать поведение пользователей после установки.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <h3 class="fw-bold mb-4">Маркетинговый справочник</h3>
+            
+            <div class="card metric-card shadow-sm mb-4 p-4">
+                <h5 class="fw-bold text-primary">Retention (Удержание)</h5>
+                <p class="text-muted small mb-1">Процент пользователей, вернувшихся в приложение через N дней.</p>
+                <div class="formula-badge">Формула: (Users_Day_N / Users_Day_0) × 100%</div>
+            </div>
+
+            <div class="card metric-card shadow-sm mb-4 p-4" style="border-left-color: #f59e0b;">
+                <h5 class="fw-bold" style="color: #d97706;">CPI (Cost Per Install)</h5>
+                <p class="text-muted small mb-1">Стоимость привлечения одной установки.</p>
+                <div class="formula-badge">Формула: Spend / Installs</div>
+            </div>
+
+            <div class="card metric-card shadow-sm mb-4 p-4" style="border-left-color: #10b981;">
+                <h5 class="fw-bold text-success">ROAS (Окупаемость)</h5>
+                <p class="text-muted small mb-1">Эффективность вложений в рекламу.</p>
+                <div class="formula-badge">Формула: (IAP Revenue + Ad Revenue) / Spend × 100%</div>
+            </div>
+
+            <div class="card metric-card shadow-sm mb-4 p-4" style="border-left-color: #8b5cf6;">
+                <h5 class="fw-bold" style="color: #7c3aed;">LTV (Lifetime Value)</h5>
+                <p class="text-muted small mb-1">Общий доход от одного пользователя за всё время.</p>
+                <div class="formula-badge">Формула: ARPU × Lifetime</div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm p-4 bg-light" id="requirements" style="position: sticky; top: 20px;">
+                <h5 class="fw-bold mb-3"><i class="fas fa-list-check me-2 text-secondary"></i>Требования к CSV</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-3"><strong>date:</strong> ГГГГ-ММ-ДД</li>
+                    <li class="mb-3"><strong>channel:</strong> FB, TikTok, Google</li>
+                    <li class="mb-3"><strong>country:</strong> Код ISO (US, RU, DE)</li>
+                    <li class="mb-3"><strong>Разделитель:</strong> Точка для чисел (1.50)</li>
+                </ul>
+                <div class="bg-white p-3 rounded border">
+                    <p class="mb-0 text-muted small"><strong>Важно:</strong> Не оставляйте пустые ячейки. Если данных нет, ставьте 0.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
